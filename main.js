@@ -66,40 +66,46 @@ function setTrayMenu(aReplace){
   gTray.setContextMenu(Menu.buildFromTemplate(gTrayMenu));
 }
 
-//表示非表示切り替え
+//表示
 function show(){
-  if(gMainWindow){
-    setTrayMenu([
-      {index:2,item:{ label: "非表示", enabled: false}},
-      {index:0,item:{ label: "DREAM@PAPER", enabled: false}}
-    ])
-    gMainWindow.send("fadeOut")
-    // gMainWindow.hide()
-  }else{
-    // gMainWindow.showInactive()
-    createWindow()
-    gMainWindow.center()
-    setTrayMenu([{index:2,item:
-      { label: "非表示", click: show }
-    }])
-  }
+  createWindow()
+  gMainWindow.center()
+  setTrayMenu([{index:2,item:
+    { label: "非表示", click: hide }
+  }])
+  gDb.update({_id:"DISPLAY"},{display:true})
+}
+//非表示
+function hide(){
+  setTrayMenu([
+    {index:2,item:{ label: "非表示", enabled: false}},
+    {index:0,item:{ label: "DREAM@PAPER", enabled: false}}
+  ])
+  gMainWindow.send("fadeOut")
+  gDb.update({_id:"DISPLAY"},{display:false})
 }
 
 app.on('ready', ()=>{
   gTrayMenu=[
     { label: "DREAM@PAPER", enabled: false},
     { type: "separator"},
-    { label: "非表示", click: show },
+    { label: "表示", click: show },
     { label: "終了", click: quit}
   ]
   gDb=new nedb({
     filename: __dirname+"/database/database.db",
     autoload:true
   })
-  setTimeout(()=>{
-    createWindow()
-    createTray()
-  },500)
+  createTray()
+  gDb.find({_id:"DISPLAY"},(e,doc)=>{
+    if(doc.length==0){
+      gDb.insert({display:true,_id:"DISPLAY"})
+      show()
+    }else{
+      if(doc[0].display)
+        show()
+    }
+  })
 })
 function quit(){
   if(gMainWindow==null){
