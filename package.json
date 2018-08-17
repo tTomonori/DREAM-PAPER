@@ -1,0 +1,26 @@
+{
+  "name": "DREAM@PAPER",
+  "version": "1.0.0",
+  "description": "animating wallpaper",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager ./ DREAM@PAPER --platform=darwin --icon=icon/icon.icns"
+  },
+  "repository": "",
+  "keywords": [
+    "Electron",
+    "Background",
+    "video",
+    "animation",
+    "wallpaper"
+  ],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "electron": "~1.6.2"
+  },
+  "dependencies": {
+    "nedb": "^1.8.0"
+  }
+}

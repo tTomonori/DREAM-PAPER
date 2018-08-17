@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>BE</title>
+	<style media="screen">
+		video{
+			position: fixed;
+			top:0;
+			left:0;
+			min-width: 100vw;
+			min-height: 100vh;
+			opacity: 0;
+			/* transition: opacity 2s 0s linear; */
+		}
+	</style>
+	<script type="text/javascript">
+	const renderer=require('electron').ipcRenderer
+	</script>
+</head>
+<body>
+<video id="video1" src="" preload="auto" autoplay="true" muted="muted"></video>
+<video id="video2" src="" preload="auto" autoplay="true" muted="muted"></video>
+</body>
+<script type="text/javascript" src="/Users/tomo/Library/myTools/dream@paper/dreampaperconfig.js"></script>
+<script type="text/javascript" src="./index.js"></script>
+</html>
