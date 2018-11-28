@@ -24,6 +24,12 @@
 <video id="video1" src="" preload="auto" autoplay="true" muted="muted"></video>
 <video id="video2" src="" preload="auto" autoplay="true" muted="muted"></video>
 </body>
-<script type="text/javascript" src="/Users/tomo/Library/myTools/dream@paper/dreampaperconfig.js"></script>
+<script type="text/javascript">
+const nedb=require(__dirname+'/../node_modules/nedb')
+let gDb=new nedb({
+	filename: __dirname+"/../database/database.db",
+	autoload:true
+})
+</script>
 <script type="text/javascript" src="./index.js"></script>
 </html>

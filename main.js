@@ -20,6 +20,7 @@ let gQuitFlag=false
 let gDb
 let gTray,gTrayMenu
 let gMainWindow
+let gConfigWindow
 
 function createWindow () {
   // Create the browser window.
@@ -84,12 +85,39 @@ function hide(){
   gMainWindow.send("fadeOut")
   gDb.update({_id:"DISPLAY"},{display:false})
 }
+//設定
+function config(){
+  if(gConfigWindow!=null){return}
+  gConfigWindow = new BrowserWindow({
+    width: 200, minWidth: 10,
+    height: 200, minHeight: 10,
+    frame: false,
+    hasShadow: false,
+    transparent: true,
+    resizable: false
+  })
+  gConfigWindow.center()
 
+  gConfigWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'public/config/config.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+
+  // Open the DevTools.
+  // gEditWindow.webContents.openDevTools()
+
+  gConfigWindow.on('closed', function () {
+    electron.session.defaultSession.clearCache(() => {})
+    gConfigWindow = null;
+  })
+}
 app.on('ready', ()=>{
   gTrayMenu=[
     { label: "DREAM@PAPER", enabled: false},
     { type: "separator"},
     { label: "表示", click: show },
+    { label: "設定", click: config },
     { label: "終了", click: quit}
   ]
   gDb=new nedb({
@@ -115,7 +143,8 @@ function quit(){
   setTrayMenu([
     {index:0,item:{ label: "DREAM@PAPER", enabled: false}},
     {index:2,item:{ label: "表示", enabled: false}},
-    {index:3,item:{ label: "終了", enabled: false}}
+    {index:3,item:{ label: "設定", enabled: false}},
+    {index:4,item:{ label: "終了", enabled: false}}
   ])
   gQuitFlag=true
   gMainWindow.send("fadeOut")

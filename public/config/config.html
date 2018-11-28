@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<style media="screen">
+body{
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+	margin: 0;
+}
+#dragHeader{
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 20px;
+	-webkit-app-region: drag;
+}
+	#editor{
+		display: inline-block;
+		background: #0ff;
+		border-radius: 20px;
+		padding: 20px;
+		pointer-events: auto;
+	}
+	input[type=number]{
+		width: 6ch;
+	}
+	tr>td:nth-child(1){
+		text-align: center;
+	}
+</style>
+<body>
+	<div id="editor">
+		<div id="dragHeader"></div>
+		<form class="" onsubmit="setPath();return false;">
+			<table id="formTable">
+				<span>背景動画のフォルダ</span><br>
+				<div id="movieFolderPath" style="width:140px;height:45px;overflow:scroll;word-wrap: break-word;"></div><br>
+				<input id="inputPath" type="text" name="inputPath" value="">
+			<br>
+			<br>
+			<input type="submit" name="" value="設定">
+		</form>
+		<button onclick="window.close()">閉じる</button>
+	</div>
+</body>
+<script>
+	const renderer=require('electron').ipcRenderer
+	const nedb=require(__dirname+'/../../node_modules/nedb')
+</script>
+<script type="text/javascript" src="./config.js"></script>
+</html>
